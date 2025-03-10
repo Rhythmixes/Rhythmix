@@ -1,4 +1,4 @@
-// src/lib/spotify.ts
+import { Playlist } from '../types/spotifyTypes'; // 타입 가져오기
 
 const API_URL = 'https://api.spotify.com/v1';
 
@@ -10,7 +10,7 @@ export const setAccessToken = (token: string) => {
 };
 
 // 플레이리스트 가져오기
-export const getPlaylist = async (playlistId: string) => {
+export const getPlaylist = async (playlistId: string): Promise<Playlist> => {
   if (!accessToken) {
     throw new Error('Access token is not set');
   }
@@ -25,7 +25,6 @@ export const getPlaylist = async (playlistId: string) => {
     throw new Error('Failed to fetch playlist');
   }
 
-  return await response.json();
+  const data = await response.json();
+  return data; // Playlist 타입에 맞는 데이터를 반환
 };
-
-// 다른 Spotify API 함수들 추가 가능
